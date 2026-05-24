@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeBuddy – AI Code Assistant for Beginners</title>
+  <meta name="description" content="A simple AI chatbot that helps beginners learn coding — built with HTML, CSS, JS and the Claude API."/>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⟨/⟩</span>
+      <span class="logo-text">CodeBuddy</span>
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#assistant">Try it</a>
+      <a href="#about">About</a>
+      <a href="https://github.com" target="_blank" class="btn-github">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <!-- hero section -->
+  <section class="hero">
+    <div class="hero-badge">🛠 Side project — work in progress</div>
+    <h1>Coding help for<br/><span class="gradient-text">actual beginners</span></h1>
+    <p class="hero-sub">
+      I built this because I was tired of getting complicated answers to simple questions.
+      Ask anything — variables, loops, why your code is broken — and get a plain English explanation.
+    </p>
+    <div class="hero-btns">
+      <a href="#assistant" class="btn-primary">Try it out →</a>
+      <a href="https://github.com" target="_blank" class="btn-outline">View source</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span>5</span>Languages</div>
+      <div class="stat"><span>AI</span>Powered</div>
+      <div class="stat"><span>Free</span>& open source</div>
+    </div>
+  </section>
+
+  <!-- features -->
+  <section class="features" id="features">
+    <h2>What you can use it for</h2>
+    <p class="section-sub">Basically anything a beginner gets stuck on</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🐛</div>
+        <h3>Debug your code</h3>
+        <p>Paste your broken code and it'll tell you exactly what's wrong and how to fix it — in plain English.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>Understand concepts</h3>
+        <p>"What even is a loop?" — Ask anything and get a simple explanation with a real example.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <h3>Write code with you</h3>
+        <p>Describe what you're trying to build and it'll write it out with comments so you understand it.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Translate between languages</h3>
+        <p>Have Python code but need JavaScript? Just ask it to convert and explain the differences.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3>Improve your code</h3>
+        <p>Got something working but it feels messy? Ask for a code review and tips to clean it up.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧪</div>
+        <h3>Practice problems</h3>
+        <p>Ask for a beginner exercise on any topic and try to solve it yourself first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- the actual chatbot -->
+  <section class="assistant-section" id="assistant">
+    <div class="section-label">— live demo</div>
+    <h2 style="text-align:center; font-family: var(--font-display); font-size:1.6rem; margin-bottom:8px;">Try CodeBuddy</h2>
+    <p class="section-sub" style="text-align:center; margin-bottom:32px;">Add your API key in app.js to use this locally</p>
+
+    <div class="assistant-wrapper">
+      <div class="assistant-header">
+        <div class="assistant-title">
+          <span class="dot green"></span>
+          <span>CodeBuddy — chat</span>
+        </div>
+        <div class="lang-selector">
+          <label for="langSelect">Language:</label>
+          <select id="langSelect">
+            <option value="any">Any</option>
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+            <option value="c">C</option>
+            <option value="java">Java</option>
+            <option value="html">HTML / CSS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="chat-window" id="chatWindow">
+        <div class="message bot">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            Hey! I'm CodeBuddy 👋<br/><br/>
+            I'm here to help you learn coding without the confusion. Try asking me something like:<br/><br/>
+            • <em>What is a variable and why do we need it?</em><br/>
+            • <em>My Python code gives an error, can you help?</em><br/>
+            • <em>Write a simple calculator in JavaScript</em><br/><br/>
+            No dumb questions here — what are you working on?
+          </div>
+        </div>
+      </div>
+
+      <!-- quick start buttons -->
+      <div class="quick-prompts">
+        <span>Try:</span>
+        <button onclick="quickPrompt('What is a variable? Give me a simple example')">What is a variable?</button>
+        <button onclick="quickPrompt('Write a hello world program in Python with comments')">Hello World in Python</button>
+        <button onclick="quickPrompt('What is a function and when should I use one?')">What is a function?</button>
+        <button onclick="quickPrompt('Explain if-else with a real life example')">How does if-else work?</button>
+      </div>
+
+      <div class="input-area">
+        <textarea
+          id="userInput"
+          placeholder="Ask a question or paste your code... (Enter to send, Shift+Enter for new line)"
+          rows="3"
+        ></textarea>
+        <div class="input-controls">
+          <button class="btn-clear" onclick="clearChat()">🗑 Clear chat</button>
+          <button class="btn-send" id="sendBtn" onclick="sendMessage()">Send ➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- about section — personal touch -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <h2>Why I built this</h2>
+      <p>
+        When I started learning to code, I'd Google a simple question and end up on a Stack Overflow thread
+        from 2013 with 47 conflicting answers and code I didn't understand.
+      </p>
+      <p>
+        I wanted something that would just talk to me like a human and explain things at my level —
+        without assuming I already knew half the stuff. So I built it.
+      </p>
+      <p>
+        This is also my first real project using an external API, so there's probably stuff that
+        could be done better. If you see something dumb, feel free to open an issue or PR on GitHub.
+      </p>
+      <div class="tech-tags">
+        <span>HTML5</span>
+        <span>CSS3</span>
+        <span>Vanilla JS</span>
+        <span>Claude API</span>
+        <span>No frameworks</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">⟨/⟩ CodeBuddy</div>
+      <p>Open source project — MIT license. Built to practice web dev and API integration.</p>
+      <div class="footer-links">
+        <a href="https://github.com" target="_blank">GitHub</a>
+        <a href="CHANGELOG.md">Changelog</a>
+        <a href="README.md">README</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
